@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +25,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import androidx.compose.ui.zIndex
 import com.pfv.abzagencytesttask.R
 import com.pfv.abzagencytesttask.ui.common.buttons.BaseAppButton
 import com.pfv.abzagencytesttask.ui.theme.Black_87
@@ -36,28 +39,28 @@ fun InfoScreen(
     onCloseInfoScreen: () -> Unit
 ) {
 
-    Popup(
-        properties = PopupProperties(
-            usePlatformDefaultWidth = false
-        ),
+    Dialog(
+        properties = DialogProperties(),
         onDismissRequest = { }
     ) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
                 .background(
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(12.dp)
                 )
+                .padding(16.dp)
+
         ){
 
-            IconButton(
-                modifier = Modifier
-                    .statusBarsPadding()
-                    .align(alignment = Alignment.TopEnd),
-                onClick = onCloseInfoScreen
-            ) {
-                Icon(painter = painterResource(id = R.drawable.ic_close), contentDescription = "img")
-            }
+//            IconButton(
+//                modifier = Modifier
+//                    //.statusBarsPadding()
+//                    .align(alignment = Alignment.TopEnd),
+//                onClick = onCloseInfoScreen
+//            ) {
+//                Icon(painter = painterResource(id = R.drawable.ic_close), contentDescription = "img")
+//            }
 
             Column(
                 modifier = Modifier

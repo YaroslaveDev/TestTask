@@ -5,12 +5,6 @@ import kotlinx.serialization.Serializable
 
 sealed class BaseAppRoutes() {
 
-//    object SplashScreen : BaseAppRoutes("splash_screen")
-//    object UsersScreen : BaseAppRoutes("users_screen")
-//    object AddNewUserScreen : BaseAppRoutes("add_new_user_screen")
-//
-//    object MainNavGraph : BaseAppRoutes("main_nav_graph")
-
     @Serializable
     object SplashScreen : BaseAppRoutes()
 
@@ -22,6 +16,10 @@ sealed class BaseAppRoutes() {
 
     @Serializable
     object MainNavGraph : BaseAppRoutes()
+
+    //Info Popups
+    @Serializable
+    data class BaseInfoPopup(val actionText: String, val text: String, val img: Int) : BaseAppRoutes()
 
 }
 

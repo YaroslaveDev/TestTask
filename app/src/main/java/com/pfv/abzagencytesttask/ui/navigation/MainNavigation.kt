@@ -1,7 +1,9 @@
 package com.pfv.abzagencytesttask.ui.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
@@ -14,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -69,6 +72,8 @@ fun MainNavigation() {
         }
     ) {
 
-        MainNavGraph(navController = navController, paddingValues = it)
+        Box(modifier = Modifier.padding(bottom = it.calculateBottomPadding())) {
+            MainNavGraph(navController = navController)
+        }
     }
 }

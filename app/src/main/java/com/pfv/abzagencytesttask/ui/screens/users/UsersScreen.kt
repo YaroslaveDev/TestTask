@@ -32,6 +32,8 @@ import androidx.navigation.NavController
 import com.pfv.abzagencytesttask.R
 import com.pfv.abzagencytesttask.ui.common.items.UserItem
 import com.pfv.abzagencytesttask.ui.common.other.InfoScreen
+import com.pfv.abzagencytesttask.ui.navigation.routes.BaseAppRoutes
+import com.pfv.abzagencytesttask.ui.screens.users.nav_state.UsersScreenNavState
 import com.pfv.abzagencytesttask.ui.screens.users.screen_state.UsersScreenState
 import com.pfv.abzagencytesttask.ui.screens.users.ui_state.UsersScreenUiState
 
@@ -70,6 +72,18 @@ fun UsersScreen(
                 onAction = {},
                 onCloseInfoScreen = {}
             )
+        }
+    }
+
+    LaunchedEffect(viewModel.navState){
+
+        when(val state = viewModel.navState){
+            UsersScreenNavState.InitState -> {}
+            is UsersScreenNavState.NavToInfoPopup -> {
+
+                navController.navigate(BaseAppRoutes.BaseInfoPopup(actionText = state.actionText, state.text, state.img))
+                viewModel.resetNavState()
+            }
         }
     }
 
