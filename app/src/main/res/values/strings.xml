@@ -8,4 +8,24 @@
     <string name="try_again">Try again</string>
     <string name="user_registration_success">User successfully registered</string>
     <string name="user_registration_failed">That email is already registered</string>
+
+    <string name="required_field">Required field</string>
+    <string name="your_name">Your name</string>
+    <string name="email">Email</string>
+    <string name="invalid_email">Invalid email format</string>
+    <string name="phone">Phone</string>
+    <string name="phone_error">Phone doesn\'t match pattern</string>
+    <string name="select_your_position">Select your position</string>
+    <string name="upload_your_photo">Upload your photo</string>
+    <string name="upload">Upload</string>
+    <string name="photo_is_required">Photo is required</string>
+
+<!--  IT Roles  -->
+    <string name="frontend">Frontend developer</string>
+    <string name="backend">Backend developer</string>
+    <string name="designer">Designer</string>
+    <string name="qa">QA</string>
+
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>

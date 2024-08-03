@@ -86,6 +86,7 @@ fun InfoScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 BaseAppButton(
+                    modifier = Modifier,
                     text = actionText,
                     onClick = onAction
                 )

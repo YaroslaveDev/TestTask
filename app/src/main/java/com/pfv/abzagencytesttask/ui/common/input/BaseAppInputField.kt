@@ -9,15 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.pfv.abzagencytesttask.ext.isNotNull
 import com.pfv.abzagencytesttask.ui.theme.Black_48
 import com.pfv.abzagencytesttask.ui.theme.Black_87
+import com.pfv.abzagencytesttask.ui.theme.Grey
 
 @Composable
 fun BaseAppInputField(
     modifier: Modifier,
     label: String,
     supportingText: String,
-    isError: Boolean,
+    error: Int?,
     value: String,
     onValueChanged: (String) -> Unit
 ) {
@@ -26,7 +28,7 @@ fun BaseAppInputField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChanged,
-        isError = isError,
+        isError = error.isNotNull(),
         label = {
             Text(text = label)
         },
@@ -36,10 +38,19 @@ fun BaseAppInputField(
             focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
             errorIndicatorColor = MaterialTheme.colorScheme.error,
             errorSupportingTextColor = MaterialTheme.colorScheme.error,
-            errorLabelColor = MaterialTheme.colorScheme.error
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            unfocusedIndicatorColor = Grey,
+            focusedLabelColor = MaterialTheme.colorScheme.secondary,
+            errorContainerColor = Color.Transparent,
+            cursorColor = MaterialTheme.colorScheme.secondary,
+            errorCursorColor = MaterialTheme.colorScheme.error
         ),
         supportingText = {
-            Text(text = supportingText)
+            if(error.isNotNull()){
+                Text(text = supportingText)
+            }
         }
     )
 }
