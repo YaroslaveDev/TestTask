@@ -18,7 +18,8 @@ class UsersDataDtoToDvoMapper(
                     name = userDto.name.orEmpty(),
                     email = userDto.email.orEmpty(),
                     phone = userDto.phone.orEmpty(),
-                    photo = userDto.photo.orEmpty()
+                    photo = userDto.photo.orEmpty(),
+                    position = userDto.position.orEmpty()
                 )
             }.orEmpty()
         )

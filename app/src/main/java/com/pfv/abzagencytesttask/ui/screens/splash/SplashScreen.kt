@@ -32,7 +32,7 @@ fun SplashScreen(
 
     LaunchedEffect(Unit){
         delay(3000)
-        navController.navigate(BaseAppRoutes.MainNavGraph.route){
+        navController.navigate(BaseAppRoutes.MainNavGraph){
             popUpTo(0)
         }
     }

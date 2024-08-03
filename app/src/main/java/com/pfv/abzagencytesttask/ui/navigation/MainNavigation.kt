@@ -69,6 +69,6 @@ fun MainNavigation() {
         }
     ) {
 
-        MainNavGraph(navController = navController)
+        MainNavGraph(navController = navController, paddingValues = it)
     }
 }

@@ -57,6 +57,12 @@ fun UserItem(
                 )
 
                 Text(
+                    text = user.position,
+                    color = Black_87,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                Text(
                     text = user.email,
                     color = Black_87,
                     style = MaterialTheme.typography.bodyMedium

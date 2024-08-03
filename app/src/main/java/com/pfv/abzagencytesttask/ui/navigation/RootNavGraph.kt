@@ -14,19 +14,15 @@ fun RootNavGraph(
 
     NavHost(
         navController = navHostController,
-        startDestination = BaseAppRoutes.SplashScreen.route
+        startDestination = BaseAppRoutes.SplashScreen
     ){
 
-        composable(
-            route = BaseAppRoutes.SplashScreen.route
-        ){
+        composable<BaseAppRoutes.SplashScreen>(){
 
             SplashScreen(navController = navHostController)
         }
 
-        composable(
-            route = BaseAppRoutes.MainNavGraph.route
-        ){
+        composable<BaseAppRoutes.MainNavGraph>(){
             MainNavigation()
         }
     }

@@ -13,5 +13,7 @@ data class UserDto(
     @SerializedName("phone")
     val phone: String?,
     @SerializedName("photo")
-    val photo: String?
+    val photo: String?,
+    @SerializedName("position")
+    val position: String?
 )
