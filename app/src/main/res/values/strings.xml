@@ -28,4 +28,6 @@
 
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+
+    <string name="fileprovider">com.pfv.abzagencytesttask.fileprovider</string>
 </resources>

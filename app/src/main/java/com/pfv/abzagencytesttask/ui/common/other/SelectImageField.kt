@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pfv.abzagencytesttask.R
 import com.pfv.abzagencytesttask.ext.isNotNull
+import com.pfv.abzagencytesttask.ext.isNull
 import com.pfv.abzagencytesttask.ui.common.buttons.BaseAppButton
 import com.pfv.abzagencytesttask.ui.common.buttons.BaseAppTextButton
 import com.pfv.abzagencytesttask.ui.theme.Black_48
@@ -26,57 +27,43 @@ fun SelectImageField(
     modifier: Modifier,
     error: Int?,
     value: String,
-    onUploadImage: () -> Unit
 ) {
 
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.CenterEnd
-    ) {
 
-        OutlinedTextField(
-            enabled = false,
-            modifier = Modifier
-                .fillMaxWidth(),
-            value = value,
-            onValueChange = {},
-            isError = error.isNotNull(),
-            label = {
-                Text(text = stringResource(id = R.string.upload_your_photo))
-            },
-            colors = TextFieldDefaults.colors(
-                unfocusedTextColor = Black_48,
-                focusedTextColor = Black_87,
-                focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
-                errorIndicatorColor = MaterialTheme.colorScheme.error,
-                errorSupportingTextColor = MaterialTheme.colorScheme.error,
-                errorLabelColor = MaterialTheme.colorScheme.error,
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                unfocusedIndicatorColor = Grey,
-                focusedLabelColor = MaterialTheme.colorScheme.secondary,
-                errorContainerColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.secondary,
-                errorCursorColor = MaterialTheme.colorScheme.error,
-                disabledContainerColor = Color.Transparent,
-                disabledIndicatorColor = Grey
-            ),
-            supportingText = {
-                if (error.isNotNull()) {
-                    Text(text = stringResource(id = R.string.photo_is_required))
-                }
-            },
-        )
-
-        BaseAppTextButton(
-            modifier = Modifier
-                .padding(
-                    end = 6.dp,
-                    bottom = 6.dp
-                ),
-            text = stringResource(id = R.string.upload)
-        ) {
-            onUploadImage()
-        }
-    }
+    OutlinedTextField(
+        enabled = false,
+        modifier = modifier
+            .fillMaxWidth(),
+        value = value,
+        onValueChange = {},
+        isError = error.isNotNull(),
+        label = {
+            Text(text = stringResource(id = R.string.upload_your_photo))
+        },
+        colors = TextFieldDefaults.colors(
+            unfocusedTextColor = Black_48,
+            focusedTextColor = Black_87,
+            focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+            errorIndicatorColor = MaterialTheme.colorScheme.error,
+            errorSupportingTextColor = MaterialTheme.colorScheme.error,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            unfocusedIndicatorColor = Grey,
+            focusedLabelColor = MaterialTheme.colorScheme.secondary,
+            errorContainerColor = Color.Transparent,
+            cursorColor = MaterialTheme.colorScheme.secondary,
+            errorCursorColor = MaterialTheme.colorScheme.error,
+            disabledContainerColor = Color.Transparent,
+            disabledIndicatorColor = if (error.isNull()) Grey else MaterialTheme.colorScheme.error,
+            disabledTextColor = if (error.isNull()) Black_48 else MaterialTheme.colorScheme.error,
+            disabledLabelColor = if (error.isNull()) Black_48 else MaterialTheme.colorScheme.error,
+            disabledSupportingTextColor = if (error.isNull()) Black_48 else MaterialTheme.colorScheme.error
+        ),
+        supportingText = {
+            if (error.isNotNull()) {
+                Text(text = stringResource(id = R.string.photo_is_required))
+            }
+        },
+    )
 }

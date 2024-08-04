@@ -5,10 +5,14 @@ import com.pfv.abzagencytesttask.data.dto.CreatedUserDto
 import com.pfv.abzagencytesttask.data.dto.Token
 import com.pfv.abzagencytesttask.data.dto.UsersDto
 import com.pfv.abzagencytesttask.data.remote.network.NetworkResult
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface TestTaskService {
 
@@ -18,10 +22,15 @@ interface TestTaskService {
     @GET(TOKEN)
     suspend fun getUserCreationToken() : NetworkResult<Token>
 
+    @Multipart
     @POST(USERS)
     suspend fun createNewUser(
         @Header("Token") token: String,
-        @Body user: CreateNewUserRequestDto
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("position_id") positionId: RequestBody,
+        @Part photo: MultipartBody.Part
     ) : NetworkResult<CreatedUserDto>
 
     companion object {

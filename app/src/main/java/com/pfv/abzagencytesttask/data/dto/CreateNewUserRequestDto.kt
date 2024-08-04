@@ -16,5 +16,5 @@ data class CreateNewUserRequestDto(
     @SerializedName("position_id")
     val positionId: Int,
     @SerializedName("photo")
-    val photo: MultipartBody.Part
+    val photo: MultipartBody.Part?
 ) : NetworkEntity

@@ -8,6 +8,8 @@ import com.pfv.abzagencytesttask.data.remote.network.toResultState
 import com.pfv.abzagencytesttask.domain.NetworkEntity
 import com.pfv.abzagencytesttask.domain.ResultState
 import com.pfv.abzagencytesttask.domain.repository.TestTaskRepository
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class TestTaskRepositoryImpl @Inject constructor(
@@ -20,9 +22,13 @@ class TestTaskRepositoryImpl @Inject constructor(
 
     override suspend fun createNewUser(
         token: String,
-        user: NetworkEntity
+        name: RequestBody,
+        email: RequestBody,
+        phone: RequestBody,
+        positionId: RequestBody,
+        photo: MultipartBody.Part
     ): ResultState<NetworkEntity> {
-        return testTaskService.createNewUser(token, user as CreateNewUserRequestDto).toResultState { it }
+        return testTaskService.createNewUser(token, name, email, phone, positionId, photo).toResultState { it }
     }
 
     override suspend fun getUserCreationToken(): ResultState<Token> {

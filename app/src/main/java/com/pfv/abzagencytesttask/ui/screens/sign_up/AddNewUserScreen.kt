@@ -2,6 +2,7 @@ package com.pfv.abzagencytesttask.ui.screens.sign_up
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,6 +33,7 @@ import androidx.navigation.NavController
 import com.pfv.abzagencytesttask.R
 import com.pfv.abzagencytesttask.data.constants.ITPosition
 import com.pfv.abzagencytesttask.ui.common.buttons.BaseAppButton
+import com.pfv.abzagencytesttask.ui.common.buttons.BaseAppTextButton
 import com.pfv.abzagencytesttask.ui.common.input.BaseAppInputField
 import com.pfv.abzagencytesttask.ui.common.items.SelectableITPositionItem
 import com.pfv.abzagencytesttask.ui.common.other.PickImageBottomSheet
@@ -47,13 +50,7 @@ fun AddNewUserScreen(
     viewModel: AddNewUserViewModel = hiltViewModel()
 ) {
 
-    val coroutineScope = rememberCoroutineScope()
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberStandardBottomSheetState(
-            initialValue = SheetValue.Hidden,
-            skipHiddenState = false
-        )
-    )
+    val context = LocalContext.current
 
     Scaffold(
         modifier = Modifier
@@ -133,22 +130,38 @@ fun AddNewUserScreen(
                 )
             }
 
-            SelectImageField(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                error = null,
-                value = "",
-                onUploadImage = {
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                SelectImageField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    error = viewModel.form.imageError,
+                    value = viewModel.form.getImageName(),
+                )
+
+                BaseAppTextButton(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 10.dp
+                        ),
+                    text = stringResource(id = R.string.upload)
+                ) {
                     viewModel.reduceEvent(AddNewUserEvent.ShowPickImageBottomSheet)
                 }
-            )
+            }
+
 
             BaseAppButton(
                 modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.sign_up)
             ) {
-                viewModel.reduceEvent(AddNewUserEvent.OnSignUp)
+                viewModel.reduceEvent(AddNewUserEvent.OnSignUp(context = context))
             }
         }
 
@@ -157,13 +170,11 @@ fun AddNewUserScreen(
             AddNewUserUiState.PickImageBottomSheet -> {
 
                 PickImageBottomSheet(
-                    onPickCameraImg = {
-                        viewModel.resetUiState()
-                    },
-                    onPickGalleryImg = {
-                        viewModel.resetUiState()
-                    },
                     onDismiss = {
+                        viewModel.resetUiState()
+                    },
+                    onImgPicked = {
+                        viewModel.reduceEvent(AddNewUserEvent.OnImagePicked(it))
                         viewModel.resetUiState()
                     }
                 )

@@ -42,6 +42,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.5"
@@ -100,4 +101,7 @@ dependencies {
 
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+    //Permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.26.2-beta")
 }
