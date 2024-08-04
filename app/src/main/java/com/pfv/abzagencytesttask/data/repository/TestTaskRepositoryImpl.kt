@@ -2,6 +2,7 @@ package com.pfv.abzagencytesttask.data.repository
 
 import com.pfv.abzagencytesttask.data.dto.CreateNewUserRequestDto
 import com.pfv.abzagencytesttask.data.dto.Token
+import com.pfv.abzagencytesttask.data.mapper.AvailablePositionsDtoToDvoMapper
 import com.pfv.abzagencytesttask.data.mapper.UsersDataDtoToDvoMapper
 import com.pfv.abzagencytesttask.data.remote.api.TestTaskService
 import com.pfv.abzagencytesttask.data.remote.network.toResultState
@@ -33,6 +34,11 @@ class TestTaskRepositoryImpl @Inject constructor(
 
     override suspend fun getUserCreationToken(): ResultState<Token> {
         return testTaskService.getUserCreationToken().toResultState { it }
+    }
+
+    override suspend fun getAvailablePositions(): ResultState<NetworkEntity> {
+
+        return testTaskService.getAvailablePositions().toResultState { AvailablePositionsDtoToDvoMapper(it).transform() }
     }
 
 }

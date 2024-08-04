@@ -3,6 +3,7 @@ package com.pfv.abzagencytesttask.di
 import com.pfv.abzagencytesttask.domain.repository.TestTaskRepository
 import com.pfv.abzagencytesttask.domain.use_case.CreateNewUserUseCase
 import com.pfv.abzagencytesttask.domain.use_case.GetAllUsersUseCase
+import com.pfv.abzagencytesttask.domain.use_case.GetAvailablePositionsUseCase
 import com.pfv.abzagencytesttask.domain.use_case.GetUserCreationTokenUseCase
 import dagger.Module
 import dagger.Provides
@@ -24,4 +25,8 @@ class DomainModule {
     @Provides
     fun provideCreateNewUserUseCase(repository: TestTaskRepository) =
         CreateNewUserUseCase(testTaskRepository = repository)
+
+    @Provides
+    fun provideGetAvailablePositionsUseCase(repository: TestTaskRepository) =
+        GetAvailablePositionsUseCase(testTaskRepository = repository)
 }

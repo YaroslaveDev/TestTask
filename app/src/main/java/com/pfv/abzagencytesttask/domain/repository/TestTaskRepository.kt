@@ -25,5 +25,7 @@ interface TestTaskRepository {
         positionId: RequestBody,
         photo: MultipartBody.Part
     ) : ResultState<NetworkEntity>
-    suspend fun getUserCreationToken() : ResultState<Token>
+    suspend fun getUserCreationToken() : ResultState<NetworkEntity>
+
+    suspend fun getAvailablePositions() : ResultState<NetworkEntity>
 }

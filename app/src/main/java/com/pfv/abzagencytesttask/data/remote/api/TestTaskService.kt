@@ -1,5 +1,6 @@
 package com.pfv.abzagencytesttask.data.remote.api
 
+import com.pfv.abzagencytesttask.data.dto.AvailablePositionsResponseDto
 import com.pfv.abzagencytesttask.data.dto.CreateNewUserRequestDto
 import com.pfv.abzagencytesttask.data.dto.CreatedUserDto
 import com.pfv.abzagencytesttask.data.dto.Token
@@ -33,9 +34,13 @@ interface TestTaskService {
         @Part photo: MultipartBody.Part
     ) : NetworkResult<CreatedUserDto>
 
+    @GET(POSITIONS)
+    suspend fun getAvailablePositions() : NetworkResult<AvailablePositionsResponseDto>
+
     companion object {
 
         const val USERS = "users/"
         const val TOKEN = "token"
+        const val POSITIONS = "positions"
     }
 }

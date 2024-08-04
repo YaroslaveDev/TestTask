@@ -52,6 +52,7 @@ class UsersScreenViewModel @Inject constructor(
                     if (data.users.isEmpty()){
                         updateScreenState(UsersScreenState.EmptyState)
                     }else{
+                        users.clear()
                         users.addAll(data.users)
                         updateScreenState(UsersScreenState.SuccessState)
                     }

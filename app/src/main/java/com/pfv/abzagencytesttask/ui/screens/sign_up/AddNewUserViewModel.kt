@@ -12,8 +12,11 @@ import com.pfv.abzagencytesttask.R
 import com.pfv.abzagencytesttask.data.constants.ITPosition
 import com.pfv.abzagencytesttask.data.dto.CreateNewUserRequestDto
 import com.pfv.abzagencytesttask.data.dto.Token
+import com.pfv.abzagencytesttask.data.dvo.AvailablePositionsDvo
+import com.pfv.abzagencytesttask.data.dvo.PositionDvo
 import com.pfv.abzagencytesttask.domain.ResultState
 import com.pfv.abzagencytesttask.domain.use_case.CreateNewUserUseCase
+import com.pfv.abzagencytesttask.domain.use_case.GetAvailablePositionsUseCase
 import com.pfv.abzagencytesttask.domain.use_case.GetUserCreationTokenUseCase
 import com.pfv.abzagencytesttask.ext.convertToRequestBody
 import com.pfv.abzagencytesttask.ext.isNull
@@ -34,12 +37,19 @@ import javax.inject.Inject
 @HiltViewModel
 class AddNewUserViewModel @Inject constructor(
     private val getUserCreationTokenUseCase: GetUserCreationTokenUseCase,
-    private val createNewUserUseCase: CreateNewUserUseCase
+    private val createNewUserUseCase: CreateNewUserUseCase,
+    private val getAvailablePositionsUseCase: GetAvailablePositionsUseCase
 ) : ViewModel() {
 
     var form by mutableStateOf(AddNewUserForm())
     var uiState by mutableStateOf<AddNewUserUiState>(AddNewUserUiState.InitState)
     var isRealtimeValidationActive by mutableStateOf(false)
+
+    init {
+        viewModelScope.launch {
+            getAvailablePositions()
+        }
+    }
 
     fun reduceEvent(event: AddNewUserEvent) {
 
@@ -62,6 +72,36 @@ class AddNewUserViewModel @Inject constructor(
 
         if (isRealtimeValidationActive){
             validateImage()
+        }
+    }
+
+    private fun getAvailablePositions() {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            updateUiState(AddNewUserUiState.Setup)
+
+            val response = getAvailablePositionsUseCase()
+
+            when (response) {
+                is ResultState.Error -> {
+                    updateUiState(AddNewUserUiState.Error(response.errorDvo.errorMessage.orEmpty()))
+                }
+
+                is ResultState.Success -> {
+
+                    val data = response.data as AvailablePositionsDvo
+
+                    if (data.positions.isNotEmpty()){
+                        form = form.copy(
+                            availablePositions = data.positions,
+                            position = data.positions.first()
+                        )
+                    }
+
+                    updateUiState(AddNewUserUiState.InitState)
+                }
+            }
         }
     }
 
@@ -99,7 +139,7 @@ class AddNewUserViewModel @Inject constructor(
             name = form.name.convertToRequestBody(),
             email = form.email.convertToRequestBody(),
             phone = form.phone.convertToRequestBody(),
-            positionId = "1".convertToRequestBody(),
+            positionId = form.position.id.convertToRequestBody(),
             photo = photo
         )
 
@@ -145,7 +185,7 @@ class AddNewUserViewModel @Inject constructor(
         if (isRealtimeValidationActive) validateEmail()
     }
 
-    private fun updateITPosition(position: ITPosition) {
+    private fun updateITPosition(position: PositionDvo) {
 
         form = form.copy(
             position = position

@@ -154,7 +154,7 @@ fun AddNewUserScreen(
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            ITPosition.entries.forEach {
+            viewModel.form.availablePositions.forEach {
 
                 val isSelected by remember(viewModel.form.position) {
                     derivedStateOf {
@@ -166,7 +166,7 @@ fun AddNewUserScreen(
                     modifier = Modifier
                         .padding(start = 16.dp),
                     isSelected = isSelected,
-                    text = stringResource(id = it.text),
+                    text = it.name,
                     onSelect = {
                         viewModel.reduceEvent(AddNewUserEvent.UpdateITPosition(it))
                     }
