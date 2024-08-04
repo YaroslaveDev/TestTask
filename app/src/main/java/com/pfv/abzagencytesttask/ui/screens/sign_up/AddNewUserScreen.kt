@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -55,6 +56,17 @@ fun AddNewUserScreen(
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.create_new_user),
+                        color = Black_87,
+                        style = MaterialTheme.typography.headlineLarge
+                    )
+                }
+            )
+        }
 
     ) {
 
@@ -62,8 +74,7 @@ fun AddNewUserScreen(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
-                .statusBarsPadding()
-                .padding(bottom = it.calculateBottomPadding())
+                .padding(it)
                 .padding(horizontal = 16.dp)
                 .imePadding(),
             verticalArrangement = Arrangement.spacedBy(12.dp)

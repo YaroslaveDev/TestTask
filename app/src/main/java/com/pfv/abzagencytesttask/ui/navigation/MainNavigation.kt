@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.pfv.abzagencytesttask.ui.navigation.routes.BottomNavRoutes
@@ -32,8 +33,7 @@ fun MainNavigation() {
         BottomNavRoutes.AddNewUserBottomItem
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-        ?: BottomNavRoutes.UsersBottomItem.route
+    val currentRoute = navBackStackEntry?.destination
 
     Scaffold(
         modifier = Modifier
@@ -44,9 +44,7 @@ fun MainNavigation() {
 
                 bottomNavItems.forEach { item ->
 
-                    val isSelected by remember(currentRoute) {
-                        derivedStateOf { currentRoute == item.route }
-                    }
+                    val isSelected = currentRoute?.hierarchy?.any { it.route == item.route::class.qualifiedName } == true
 
                     NavigationBarItem(
                         selected = isSelected,
