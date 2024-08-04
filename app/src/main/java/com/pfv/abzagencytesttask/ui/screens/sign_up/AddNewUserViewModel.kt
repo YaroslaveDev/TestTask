@@ -69,11 +69,13 @@ class AddNewUserViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
 
+            updateUiState(AddNewUserUiState.Setup)
+
             val response = getUserCreationTokenUseCase()
 
             when (response) {
                 is ResultState.Error -> {
-                    Log.i("ddddddddddd", "getUserCreationToken -> ${response.errorDvo}")
+                    updateUiState(AddNewUserUiState.Error(response.errorDvo.errorMessage.orEmpty()))
                 }
 
                 is ResultState.Success -> {
@@ -103,10 +105,10 @@ class AddNewUserViewModel @Inject constructor(
 
         when(response){
             is ResultState.Error -> {
-                Log.i("ddddddddddd", "createNewUser -> ${response.errorDvo}")
+                updateUiState(AddNewUserUiState.Error(response.errorDvo.errorMessage.orEmpty()))
             }
             is ResultState.Success -> {
-                Log.i("ddddddddddd", "createNewUser -> ${response.data.toString()}")
+                updateUiState(AddNewUserUiState.UserSuccessCreated)
             }
         }
     }

@@ -76,9 +76,9 @@ fun PickImageBottomSheet(
     val cameraLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
 
-            if (it){
+//            if (it){
                 onImgPicked(uri)
-            }
+//            }
         }
 
     val permissionLauncher = rememberLauncherForActivityResult(

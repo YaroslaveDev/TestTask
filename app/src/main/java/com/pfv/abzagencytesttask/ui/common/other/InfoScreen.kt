@@ -53,14 +53,14 @@ fun InfoScreen(
 
         ){
 
-//            IconButton(
-//                modifier = Modifier
-//                    //.statusBarsPadding()
-//                    .align(alignment = Alignment.TopEnd),
-//                onClick = onCloseInfoScreen
-//            ) {
-//                Icon(painter = painterResource(id = R.drawable.ic_close), contentDescription = "img")
-//            }
+            IconButton(
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .align(alignment = Alignment.TopEnd),
+                onClick = onCloseInfoScreen
+            ) {
+                Icon(painter = painterResource(id = R.drawable.ic_close), contentDescription = "img")
+            }
 
             Column(
                 modifier = Modifier

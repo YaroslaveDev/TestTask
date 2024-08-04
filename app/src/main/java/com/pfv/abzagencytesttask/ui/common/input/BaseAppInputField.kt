@@ -1,6 +1,8 @@
 package com.pfv.abzagencytesttask.ui.common.input
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -16,6 +18,8 @@ import com.pfv.abzagencytesttask.ui.theme.Grey
 
 @Composable
 fun BaseAppInputField(
+    keyboardActions: KeyboardActions,
+    keyboardOptions: KeyboardOptions,
     modifier: Modifier,
     label: String,
     supportingText: String,
@@ -51,7 +55,9 @@ fun BaseAppInputField(
             if(error.isNotNull()){
                 Text(text = supportingText)
             }
-        }
+        },
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions
     )
 }
 

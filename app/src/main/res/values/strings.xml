@@ -31,4 +31,5 @@
 
     <string name="fileprovider">com.pfv.abzagencytesttask.fileprovider</string>
     <string name="create_new_user">Create a new user</string>
+    <string name="got_it">Got it</string>
 </resources>
